@@ -7,7 +7,6 @@ import './JobList.css'
 
 const JobList = () => {
     const [jobs, setJobs] = useState(null)
-    const [isLoaded, setIsLoaded] = useState(false)
 
     useEffect(() => {
         search()
