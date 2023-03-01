@@ -1,5 +1,5 @@
 import {useState, useContext} from 'react';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import UserContext from '../auth/UserContext';
 import {
     Nav,
@@ -12,7 +12,7 @@ import {
 } from 'reactstrap';
 
 
-const Navigation = () => {
+const Navigation = ({logout}) => {
     const {currentUser} = useContext(UserContext);
     const [isCollapsed, setIsCollapsed] = useState(true);
 
@@ -40,7 +40,7 @@ const Navigation = () => {
                     </NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink href='/' className='nav-link'>
+                    <NavLink href='/' className='nav-link' onClick={logout}>
                         Logout
                     </NavLink>
                 </NavItem>
