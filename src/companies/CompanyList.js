@@ -3,6 +3,7 @@ import {CardGroup, Spinner} from 'reactstrap';
 import SearchForm from '../common/SearchForm';
 import JoblyApi from '../api';
 import CompanyCard from './CompanyCard';
+import './CompanyList.css';
 
 const CompanyList = () => {
     const [companies, setCompanies] = useState(null)
@@ -17,9 +18,6 @@ const CompanyList = () => {
         setCompanies(companies)
      }
 
-    
-     console.log(companies)
-
      if(!companies) return <div><Spinner color='warning'/></div>
     
 
@@ -28,20 +26,21 @@ const CompanyList = () => {
             <div className="CompanyList-title-wrapper">
                 <h1> Companies </h1>
             </div>
-            <SearchForm searchFor={search} />
-            {companies.length ? (
-                <CardGroup>
-               {companies.map(comp => (
-                <CompanyCard
-                    key={comp.handle}
-                    handle={comp.handle}
-                    name={comp.name}
-                    description={comp.description}
-                    logoUrl={comp.logoUrl} />
-            ))}
-            </CardGroup>) : (
-                <p>Sorry, no results were found</p>
-            )}
+            <div className='CompanyList-searchbar-wrapper'>
+                <SearchForm searchFor={search} />
+            </div>
+            <div className='CompanyList-companies-wrapper'>
+                {companies.length ? (
+                    companies.map(comp => (
+                        <CompanyCard
+                            key={comp.handle}
+                            handle={comp.handle}
+                            name={comp.name}
+                            description={comp.description}
+                            logoUrl={comp.logoUrl} />
+                    ))
+                ): (<p>Sorry, No results found...</p>)}
+            </div>
         </div>
     )
 };
