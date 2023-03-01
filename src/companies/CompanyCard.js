@@ -5,16 +5,17 @@ import {
     CardTitle,
     Button
 } from 'reactstrap';
+import './CompanyCard.css'
 
 const CompanyCard = ({name, description, handle}) => {
     return (
         
-            <Card style={{width: '18rem'}}>
+            <Card className='company-card'>
                 <CardBody>
-                    <CardTitle tag='h5'>
+                    <CardTitle  className='company-card_name' tag='h5'>
                         {name}
                     </CardTitle>
-                    <CardText>
+                    <CardText className='company-card_description'>
                         {description}
                     </CardText>
                     <Button
