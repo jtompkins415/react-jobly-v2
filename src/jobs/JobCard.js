@@ -16,7 +16,7 @@ const JobCard = ({title, salary, compName, equity, handle}) => {
                         {title}
                     </CardTitle>
                     <CardText className='job-card_info'>
-                        Company: <a href={`/companies/${handle}`}>{compName}</a>
+                        {compName ? (<span>Company: <a href={`/companies/${handle}`}>{compName}</a></span> ) : (null)}
                         <br/>
                         Expected Salary: {salary}
                         <br/>
