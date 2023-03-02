@@ -1,4 +1,5 @@
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
+import ProtectedRoute from './ProtectedRoute';
 import CompanyList from '../companies/CompanyList';
 import CompanyDetails from '../companies/CompanyDetails';
 import JobList from '../jobs/JobList'
@@ -8,18 +9,21 @@ import Profile from '../profiles/Profile';
 import Homepage from '../homepage/Homepage';
 
 
-const Routing = ({login, signup}) => {
+const Routing = ({login, signup, update, currentUser}) => {
+    
+    const {username} = currentUser;
+
     return (
         <>
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<Homepage />} />
                     <Route path='/companies' element={<CompanyList />}/>
-                    <Route path='/companies/:handle' element= {<CompanyDetails />}/>
+                    <Route path='/companies/:handle/' element={<CompanyDetails />} />
                     <Route path='/jobs' element={<JobList />}/>
                     <Route path='/login' element={<LoginForm login={login} />} />
                     <Route path='/signup' element={<SignupForm signup={signup} />} />
-                    <Route path='/:username' element={<Profile />} />
+                    <Route path={`/${username}`} element={<Profile update={update}/>} />
                 </Routes>
             </BrowserRouter>
         </>
