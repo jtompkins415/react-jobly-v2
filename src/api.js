@@ -59,15 +59,15 @@ class JoblyApi {
   }
 
   /** Get all Job listed */
-  static async getJobs(name){
-    let res = await this.request(`jobs`);
+  static async getJobs(title){
+    let res = await this.request(`jobs`, {title});
     return res.jobs;
   }
 
 
   /** Get login token from username and password */
 
-  static async userLogin(data){
+  static async userLogin(data) {
     let res = await this.request(`auth/token`, data, 'post')
     console.log(res)
     localStorage.setItem('token', res.token)
@@ -81,6 +81,8 @@ class JoblyApi {
     return res
   }
 
+  /** Update user return user  */
+
   /** Delete user and return confirmation message */
   static async userDelete(username){
     let res = await this.request(`user/${username}`, {}, 'delete')
@@ -88,9 +90,15 @@ class JoblyApi {
     return res.deleted
   }
 
-  sta
+  /** Update user
+   * 
+   * return user object
+   */
+  static async userUpdate(username, data){
+    let res = await this.request(`users/${username}`, data, 'patch')
+    console.log(res)
+  }
 }
-
 // for now, put token ("testuser" / "password" on class)
 JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
     "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
