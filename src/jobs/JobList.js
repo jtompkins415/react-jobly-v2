@@ -12,14 +12,14 @@ const JobList = () => {
         search()
     }, [])
 
-    const search = async (name) => {
-        let result = await JoblyApi.getJobs(name);
-        setJobs(result);
+    const search = async (title) => {
+        let jobs = await JoblyApi.getJobs(title);
+        setJobs(jobs);
     }
 
     if(!jobs) return <Spinner>Loading...</Spinner>
 
-    
+    console.log(jobs)
 
     return (
         <div className="JobList">
