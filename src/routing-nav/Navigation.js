@@ -14,6 +14,9 @@ import {
 
 const Navigation = ({logout}) => {
     const {currentUser} = useContext(UserContext);
+    const {username} = currentUser.user;
+    
+
     const [isCollapsed, setIsCollapsed] = useState(true);
 
     const location = useLocation();
@@ -35,7 +38,7 @@ const Navigation = ({logout}) => {
                     </NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink href='/:username' className='nav-link'>
+                    <NavLink href={`/${username}`} className='nav-link'>
                         Profile
                     </NavLink>
                 </NavItem>
