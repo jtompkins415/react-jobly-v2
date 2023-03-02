@@ -1,5 +1,8 @@
 .JobList-jobs-wrapper{
     margin-top: 1rem;
-    display: inline-block;
+    margin-left: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     justify-content: center;
+    grid-gap: 1rem;
 }
