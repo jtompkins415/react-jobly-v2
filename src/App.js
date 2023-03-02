@@ -78,6 +78,19 @@ function App() {
       return {success: false, err};
     } 
   }
+  
+  /** Handle edits to account details */
+
+  const update = async (username,data) => {
+    try{
+      await JoblyApi.userUpdate(username, data);
+      return {success: true}
+    }catch (err) {
+      console.error('Update Failed', err);
+      return {success: false, err}
+    }
+  }
+
 
   if(!infoLoaded) return <Spinner>Loading...</Spinner>
 
@@ -88,7 +101,7 @@ function App() {
       <BrowserRouter>
         <Navigation logout={logout} />
       </BrowserRouter>
-      <Routing login={login} signup={signup}/>
+      <Routing login={login} signup={signup} update={update} currentUser={currentUser.user}/>
     </div>
     </UserContext.Provider>
   );
