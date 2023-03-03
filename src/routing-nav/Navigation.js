@@ -10,6 +10,7 @@ import {
     NavbarToggler,
     Collapse
 } from 'reactstrap';
+import './Navigation.css'
 
 
 const Navigation = ({logout}) => {
