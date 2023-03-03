@@ -23,10 +23,8 @@ const CompanyDetails = () => {
 
     if(!isLoaded) return <Spinner>Loading...</Spinner>
 
-    console.log(company)
     const {name, description, numEmployees, jobs} = company
     
-    console.log(jobs);
 
     return (
         <div className="CompanyDetails">
@@ -40,10 +38,11 @@ const CompanyDetails = () => {
                     Number of Employees: {numEmployees || "Information Not Availiable"}
                 </div>
             </div>  
-            
+            <div className='CompanyDetails-position-title-wrapper'>
             <h5>Positions Availiable</h5>
+            </div>
             <div className='CompanyDetails-job-wrapper'>
-              
+             
                 {jobs.length ? (
                     jobs.map(job => (
                         <JobCard 
