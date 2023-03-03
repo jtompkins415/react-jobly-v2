@@ -19,7 +19,6 @@ const JobList = () => {
 
     if(!jobs) return <Spinner>Loading...</Spinner>
 
-    console.log(jobs)
 
     return (
         <div className="JobList">
