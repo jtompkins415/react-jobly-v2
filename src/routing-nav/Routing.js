@@ -9,21 +9,21 @@ import Profile from '../profiles/Profile';
 import Homepage from '../homepage/Homepage';
 
 
-const Routing = ({login, signup, update, currentUser}) => {
+const Routing = ({login, signup}) => {
     
-    const {username} = currentUser;
+
 
     return (
         <>
             <BrowserRouter>
                 <Routes>
+                    <Route path='/companies/:handle/' element={<CompanyDetails />} />
                     <Route path='/' element={<Homepage />} />
                     <Route path='/companies' element={<CompanyList />}/>
-                    <Route path='/companies/:handle/' element={<CompanyDetails />} />
                     <Route path='/jobs' element={<JobList />}/>
                     <Route path='/login' element={<LoginForm login={login} />} />
                     <Route path='/signup' element={<SignupForm signup={signup} />} />
-                    <Route path={`/${username}`} element={<Profile update={update}/>} />
+                    <Route path={`/ProfileForm`} element={<Profile />} />
                 </Routes>
             </BrowserRouter>
         </>
