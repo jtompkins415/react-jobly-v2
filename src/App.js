@@ -8,7 +8,7 @@ import JoblyApi from './api';
 import {Spinner} from 'reactstrap';
 import useLocalStorage from './hooks/useLocalStorarge';
 import { BrowserRouter } from 'react-router-dom';
-import { UserProvider, UserContext } from './auth/UserContext';
+import { UserContext } from './auth/UserContext';
 
 
 export const TOKEN_STORAGE = 'token';
