@@ -1,6 +1,6 @@
 import {useState, useContext} from 'react';
-import {useNavigate} from 'react-router-dom'
-import UserContext from '../auth/UserContext'
+import {UserContext} from '../auth/UserContext'
+import JoblyApi from '../api';
 import {
     Form,
     FormGroup,
@@ -11,19 +11,18 @@ import {
 } from 'reactstrap'
 
 
-const Profile = ({update}) => {
-    const navigate = useNavigate()
-    const {currentUser} = useContext(UserContext);
+const Profile = () => {
+    const {currentUser, setCurrentUser} = useContext(UserContext);
 
-    const {username, firstName, lastName, email} = currentUser.user;
+    const {username, password, firstName, lastName, email} = currentUser.user
 
     const [formData, setFormData] = useState({
         firstName: `${firstName}`,
         lastName: `${lastName}`,
-        username: `${username}`,
-        password: '',
         email: `${email}`
     })
+
+    const [saveConfirmed, setSaveConfirmed] = useState(false);
 
     const handleChange = (evt) => {
         const {name, value} = evt.target;
@@ -32,22 +31,31 @@ const Profile = ({update}) => {
 
     const handleSubmit = async (evt) => {
         evt.preventDefault();
-        let result = await update(username, formData);
-        if(result.success){
-            return navigate('/');
-        } else {
-            alert('Errors: ', result.errors);
+
+        let updatedUser;
+
+        try{
+            updatedUser = await JoblyApi.userUpdate(username, formData);
+        } catch(err){
+            console.error(err);
         }
+
+        setFormData(f => ({...f, password}))
+        setSaveConfirmed(true)
+        setCurrentUser(updatedUser);
     }
 
     return (
         <div className="Profile">
+            <div className='Profile-title-wrapper'>
+                <h1> Edit User Details</h1>
+            </div>
             <div className="Form-edit-wrapper">
                 <Form className='form' onSubmit={handleSubmit}>
                     <FormGroup row>
                         <Label className='form-label' htmlFor='username' sm={3}> Username:</Label>
                         <Col sm={8}>
-                        <Input disabled id="username" name='username' value={formData.username} onChange={handleChange} />
+                        <Input disabled id="username" name='username' placeholder={username} />
                         </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -68,11 +76,12 @@ const Profile = ({update}) => {
                         <Input id="email" name='email' value={formData.email} onChange={handleChange} />
                         </Col>
                     </FormGroup>
+
+                    {saveConfirmed ? (<div> Update successful...</div>) : null}
+
+
                     <Button outline className="form-button" color="success">
-                        Sign Up
-                    </Button>
-                    <Button outline className="form-button"     color='danger' href="/main">
-                        Cancel
+                        Confirm Changes
                     </Button>
                 </Form>
 
