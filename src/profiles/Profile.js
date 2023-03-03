@@ -9,6 +9,7 @@ import {
     Button,
     Col
 } from 'reactstrap'
+import './Profile.css'
 
 
 const Profile = () => {
@@ -80,7 +81,7 @@ const Profile = () => {
                     {saveConfirmed ? (<div> Update successful...</div>) : null}
 
 
-                    <Button outline className="form-button" color="success">
+                    <Button outline className="form-button">
                         Confirm Changes
                     </Button>
                 </Form>
