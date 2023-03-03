@@ -1,6 +1,6 @@
 import {useState, useContext} from 'react';
 import { useLocation } from 'react-router-dom';
-import UserContext from '../auth/UserContext';
+import {UserContext} from '../auth/UserContext';
 import {
     Nav,
     Navbar,
@@ -14,7 +14,6 @@ import {
 
 const Navigation = ({logout}) => {
     const {currentUser} = useContext(UserContext);
-    const {username} = currentUser.user;
     
 
     const [isCollapsed, setIsCollapsed] = useState(true);
@@ -38,7 +37,7 @@ const Navigation = ({logout}) => {
                     </NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink href={`/${username}`} className='nav-link'>
+                    <NavLink href={`/ProfileForm`} className='nav-link'>
                         Profile
                     </NavLink>
                 </NavItem>
