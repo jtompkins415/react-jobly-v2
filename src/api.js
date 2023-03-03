@@ -81,7 +81,6 @@ class JoblyApi {
     return res
   }
 
-  /** Update user return user  */
 
   /** Delete user and return confirmation message */
   static async userDelete(username){
@@ -97,7 +96,13 @@ class JoblyApi {
   static async userUpdate(username, data){
     let res = await this.request(`users/${username}`, data, 'patch')
     console.log(res)
+    return res
   }
+
+  static async applyToJob(username, id){
+    console.log(username)
+    await this.request(`users/${username}/jobs/${id}`, {}, 'post')
+  }  
 }
 // for now, put token ("testuser" / "password" on class)
 JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
