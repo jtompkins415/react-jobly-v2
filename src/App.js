@@ -3,20 +3,30 @@ import {useState, useEffect} from 'react';
 import './App.css';
 import Routing from './routing-nav/Routing';
 import Navigation from './routing-nav/Navigation';
-import {decodeToken } from 'react-jwt';
-import UserContext from './auth/UserContext';
-import { useContext } from 'react';
+import {decodeToken } from 'react-jwt'
 import JoblyApi from './api';
 import {Spinner} from 'reactstrap';
 import useLocalStorage from './hooks/useLocalStorarge';
 import { BrowserRouter } from 'react-router-dom';
+import { UserProvider, UserContext } from './auth/UserContext';
 
 
 export const TOKEN_STORAGE = 'token';
 function App() {
-  const [currentUser, setCurrentUser] = useState(null)
+  const [currentUser, setCurrentUser] = useState(() => {
+    const storedUser = localStorage.getItem('currentUser');
+    return storedUser ? JSON.parse(storedUser) : null; 
+  });
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE)
   const [infoLoaded, setInfoLoaded] = useState(false);
+  const [applicationIds, setApplicationIds] = useState(new Set([]))
+
+  console.debug(
+    "App",
+    "infoLoaded = ", infoLoaded,
+    "token = ", token, 
+    "currentUser = ", currentUser
+  )
 
   /** Effect to get current user.
    * 
@@ -31,8 +41,10 @@ function App() {
         try{
           let {username} = decodeToken(token);
           let currUser = await JoblyApi.getCurrUser(username);
-          setCurrentUser(currUser)
-        } catch(err){
+          localStorage.setItem('currentUser', JSON.stringify(currUser));
+          setCurrentUser(currUser);
+          setApplicationIds(new Set(currUser.applications))
+          } catch(err){
           console.error("App getUserInfo: problem loading", err);
           setCurrentUser(null)
         }
@@ -47,8 +59,9 @@ function App() {
   /** Handles site-wide logout */
   
   const logout = () => {
+    localStorage.removeItem('currentUser');
+    setToken(null)
     setCurrentUser(null);
-    setToken(null);
   };
 
   /** Handle site-wide login */
@@ -78,32 +91,39 @@ function App() {
       return {success: false, err};
     } 
   }
-  
-  /** Handle edits to account details */
-
-  const update = async (username,data) => {
-    try{
-      await JoblyApi.userUpdate(username, data);
-      return {success: true}
-    }catch (err) {
-      console.error('Update Failed', err);
-      return {success: false, err}
-    }
-  }
-
 
   if(!infoLoaded) return <Spinner>Loading...</Spinner>
 
+  /** Check if a job has been applied to */
+  const hasAppliedToJob = (id) => {
+    return applicationIds.has(id);
+  }
+  
+  /** Apply to a job: Make an API call and update set of application IDs */
+
+  const applyToJob = async (id) => {
+    if (hasAppliedToJob(id)) return;
+    console.log(currentUser.user.username)
+    await JoblyApi.applyToJob(currentUser.user.username, id);
+    setApplicationIds(new Set([...applicationIds, id]));
+  }
+
+  
+
 
   return (
-    <UserContext.Provider value={{currentUser, setCurrentUser}}>
+    <UserContext.Provider value={{currentUser, setCurrentUser, hasAppliedToJob, applyToJob}}>
     <div className="App">
       <BrowserRouter>
         <Navigation logout={logout} />
       </BrowserRouter>
-      <Routing login={login} signup={signup} update={update} currentUser={currentUser.user}/>
+      <Routing login={login} signup={signup} currentUser={currentUser?.user}/>
     </div>
     </UserContext.Provider>
+
+    
+
+
   );
 }
 
