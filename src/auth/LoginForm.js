@@ -8,7 +8,7 @@ import {
     Button,
     Col
 } from 'reactstrap';
-
+import './Form.css'
 
 const LoginForm = ({login}) => {
     const navigate = useNavigate();
@@ -33,11 +33,11 @@ const LoginForm = ({login}) => {
     }
     
     return (
-          <div>
+          <div className='Form-container'>
             <div className='form-title'>
                 <h1> LOGIN </h1>
             </div>
-        <Form className='form' onSubmit={handleSubmit}>
+        <Form className='form-body-wrapper' onSubmit={handleSubmit}>
             <FormGroup row>
                 <Label className="form-label" htmlFor='username' sm={3}>USERNAME: </Label>
                 <Col sm={8}>
@@ -51,11 +51,8 @@ const LoginForm = ({login}) => {
                 </Col>
             </FormGroup>
 
-            <Button outline className="form-button" color="success">
-                Sign Up
-            </Button>
-            <Button outline className="form-button" color='danger' href="/main">
-                Cancel
+            <Button outline className="form-button">
+                LOGIN
             </Button>
         </Form>
         </div>
