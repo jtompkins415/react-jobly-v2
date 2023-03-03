@@ -1,0 +1,18 @@
+.Form-container{
+    margin-top: 5rem;
+    height: 100vh;
+}
+
+.form-title h1{
+    font-size: 5rem;
+    color: #BAEEDE;
+    letter-spacing: .7rem;
+}
+
+
+.form-body-wrapper{
+    margin-top: 3rem;
+    margin-left: 10rem;
+    color: #BAEEDE;
+    letter-spacing: .2rem;
+}

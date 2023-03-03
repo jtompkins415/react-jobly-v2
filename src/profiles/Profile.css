@@ -1,0 +1,32 @@
+.Profile{
+margin-top: 5rem;
+height: 100vh;
+}
+
+.Profile-title-wrapper {
+    font-size: 5rem;
+    letter-spacing: .5rem;
+    color: #BAEEDE
+}
+
+.Form-edit-wrapper {
+    margin-top: 4rem;
+    margin-left: 10rem;
+    letter-spacing: .1rem;
+    color: #BAEEDE
+}
+
+
+.form-button {
+    margin-right: 10rem;
+    color:#BAEEDE;
+    outline-color: #BAEEDE;
+    background-color: transparent;
+    border-color: #BAEEDE;
+}
+
+.form-button:hover{
+    color: #fbfbfb;
+    background-color: #97D8C4;
+    border-color: #97D8C4;
+}

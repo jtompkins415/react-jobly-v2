@@ -1,6 +1,13 @@
+.CompanyList-title-wrapper h1 {
+    font-size: 5rem;
+    letter-spacing: .5rem;
+    color: #BAEEDE
+}
+
 .CompanyList-companies-wrapper {
     margin-top: 1rem;
     margin-left: 3rem;
+    margin-right: 3rem;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     justify-content: center;

@@ -1,6 +1,13 @@
+.JobList-title-wrapper h1 {
+    font-size: 5rem;
+    letter-spacing: .5rem;
+    color: #BAEEDE
+}
+
+
 .JobList-jobs-wrapper{
     margin-top: 1rem;
-    margin-left: 3rem;
+    margin-left: 4.5rem;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     justify-content: center;

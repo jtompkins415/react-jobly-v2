@@ -1,0 +1,12 @@
+.me-2 {
+    background-color: #BAEEDE;
+}
+
+.nav-link{
+    letter-spacing: .5rem;
+    color: #BAEEDE
+}
+
+.nav-link a:hover {
+    color: #69887d
+}
