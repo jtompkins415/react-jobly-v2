@@ -84,7 +84,8 @@ function App() {
   const signup = async (data) => {
     try{
       let result = await JoblyApi.userSignup(data);
-      setToken(result)
+      console.log(result);
+      setToken(result.token)
       return {success: true};
     }catch(err){
       console.error('Signup Failed', err);
