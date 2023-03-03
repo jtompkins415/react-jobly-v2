@@ -77,7 +77,8 @@ class JoblyApi {
   /** Sign up user and return authentication token */
   static async userSignup(data){
     let res = await this.request('auth/register', data, 'post');
-    localStorage.setItem('token', res)
+    console.log(res.token)
+    localStorage.setItem('token', res.token)
     return res
   }
 
